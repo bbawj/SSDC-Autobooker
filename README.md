@@ -1,4 +1,4 @@
-# SSDC-Autobooker <meta name="google-site-verification" content="VDpJGMBc4IQaND6hvtThoBOYG18POvPXp0aXiI1lUNI" />
+# SSDC-Autobooker 
 A python-selenium script built to automate the booking of practical lessons from the Singapore Safety Driving Center [website](https://ssdcl.com.sg/)
 
 ## Dependencies
