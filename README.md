@@ -10,7 +10,7 @@ If you wish to use a different web driver (eg. Firefox) visit the python seleniu
 
 ### Email Setup
 
-The script uses environment variables to hold the EMAIL_USER and EMAIL_PASS variables and the gmail smtp server to send email notifications. For your own local use, turn on allow less secure apps for your gmail account [here](https://myaccount.google.com/lesssecureapps). This will allow the script to send automated email notifications using your own gmail to let you know when a booking has been made. If you wish to disable this feature, comment out lines 12-17 and 170-173 and it will still run fine.
+This script sends automated emails through the gmail smtp to let you know when a booking has been made. To enable, type "y" when prompted by the console. For your own local use, turn on allow less secure apps for your gmail account [here](https://myaccount.google.com/lesssecureapps). 
 
 ### Running the script
 
@@ -18,3 +18,4 @@ Navigate to the directory where you downloaded the files and call `python script
 
 The script supports the option to enable a range of your desired date and 6 days ahead for autobooking. Type "y" when prompted by the command line to enable this. Otherwise a static date will be used for the search and booking.
 
+Only practical lessons booking is supported.
