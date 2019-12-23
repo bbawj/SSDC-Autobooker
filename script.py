@@ -1,5 +1,6 @@
 import os
 import smtplib
+from getpass import getpass
 from email.message import EmailMessage
 from datetime import datetime, timedelta
 from selenium import webdriver
@@ -9,14 +10,7 @@ from selenium.webdriver.support.ui import Select, WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-EMAIL_ADDRESS = os.environ.get('EMAIL_USER')
-EMAIL_PASSWORD = os.environ.get('EMAIL_PASS')
 msg = EmailMessage()
-msg['Subject'] = 'Car lesson booked'
-msg['From'] = EMAIL_ADDRESS
-msg['To'] = EMAIL_ADDRESS
-
-
 
 
 chromedriver = os.path.abspath("chromedriver.exe")
@@ -25,11 +19,34 @@ driver.implicitly_wait(10)
 driver.maximize_window()
 driver.get("https://www.ssdcl.com.sg/User/Login")
 
+while True:
+    email_pref = input("Do you want to enable Email notifications (y/n)?: ")
+    if email_pref == "y":
+        EMAIL_ADDRESS = input("Enter your gmail: ")
+        EMAIL_PASSWORD = getpass("Enter your password: ")
+
+        try:
+            with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+                smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+            msg['Subject'] = 'Car lesson booked'
+            msg['From'] = EMAIL_ADDRESS
+            msg['To'] = EMAIL_ADDRESS
+            break
+        except smtplib.SMTPAuthenticationError:
+            print("Username or password incorrect please try again.")
+            continue
+
+    elif email_pref == "n":
+        break
+
+    else:
+        print("Invalid input, enter y/n")
+        continue
 
 #login navigation to booking screen
 while True:
     username = input("Enter your NRIC: ")
-    password = input("Enter your password: ")
+    password = getpass("Enter your password: ")
     user_elem = driver.find_element_by_id("UserName")
     pass_elem = driver.find_element_by_id("Password")
     user_elem.send_keys(username)
@@ -168,9 +185,10 @@ while len(id_list) != 0:
         close_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH,"//div[@class='modal-footer']/button[1]")))
         close_button.click()
         msg.set_content(f'A class of id {slot_id} has been booked, please login to confirm your booking within 40 mins')
-        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-            smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-            smtp.send_message(msg)
+        if email_pref == "y":
+            with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+                smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+                smtp.send_message(msg)
         if len(id_list) != 0:
             driver.find_element_by_id("btn_checkforava").click()
             driver.execute_script("window.scrollTo(0, window.scrollY + 800)")
