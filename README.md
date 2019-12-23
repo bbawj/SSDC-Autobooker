@@ -1,5 +1,5 @@
 # SSDC-Autobooker
-A python-selenium script built to automate the booking of practical lessons from the Singapore Safety Driving Center website
+A python-selenium script built to automate the booking of practical lessons from the Singapore Safety Driving Center [website](https://ssdcl.com.sg/)
 
 ## Dependencies
 
