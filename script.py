@@ -65,15 +65,17 @@ driver.find_element_by_link_text('New Booking').click()
 driver.find_element_by_id("chkProceed").click()
 driver.find_element_by_link_text('Proceed').click()
 
-#booking conditions
-while True:
-    type = input("Enter lesson type (PL/PT/SL/TT):")
-    if type not in {'PL','PT','SL','TT'}:
-        print("Please enter either PL/PT/SL/TT")
-        continue
-    else:
-        break
 
+#currently only supports 1 booking type
+#while True:
+#    type = input("Enter lesson type (PL/PT/SL/TT):")
+#    if type not in {'PL','PT','SL','TT'}:
+#        print("Please enter either PL/PT/SL/TT")
+#        continue
+#    else:
+#        break
+
+#booking conditions
 while True:
     input_date = input("Enter date (eg. 01 Jan 2020): ")
     date_pref = input("Do you want to enable 7 day range (y/n): ")
@@ -153,8 +155,8 @@ while True:
 
 
 
-type_select = Select(driver.find_element_by_id('BookingType'))
-type_select.select_by_value(type)
+#type_select = Select(driver.find_element_by_id('BookingType'))
+#type_select.select_by_value(type)
 date_elem = driver.find_element_by_id("SelectedDate")
 date_elem.send_keys(Keys.CONTROL + "a")
 date_elem.send_keys(Keys.DELETE)
